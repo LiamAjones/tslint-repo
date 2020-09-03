@@ -108,7 +108,7 @@ const SeverityAnnotationLevelMap = new Map([
 
     core.debug(ocktoData)
 
-    await octokit.checks.update(ocktoData);
+    const wait = await octokit.checks.update(ocktoData);
 
 
 })().catch((e) => {
