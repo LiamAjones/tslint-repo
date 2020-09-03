@@ -41,8 +41,7 @@ const SeverityAnnotationLevelMap = new Map([
     const result = (() => {
 
         const linter = new tslint.Linter({
-            fix: false,
-            formatter: "json",
+            fix: false
         });
 
         for (const file of glob.sync(pattern)) {
