@@ -1,0 +1,19 @@
+  
+name: workflow
+on: 
+  pull_request:
+    types: ['opened', 'edited', 'reopened', 'synchronize']
+jobs:
+  job:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v1
+      - name: Prepare
+        run: npm ci
+      - name: Lint
+        uses: LiamAjones/tslint-repo@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pattern: '**/demo/*.ts'
+          tslintConfigFile: './demo/tslint.json'
