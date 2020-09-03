@@ -27,9 +27,9 @@ const SeverityAnnotationLevelMap = new Map([
         core.setFailed("tslint-actions: Please set token");
         return;
     }
-
-    console.log('ts config file' + tslintConfigFile);
-    console.log('pattern' + pattern);
+    
+    core.debug('ts config file' + tslintConfigFile);
+    core.debug('pattern' + pattern);
 
     const octokit = new github.getOctokit(github_token);
 
