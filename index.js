@@ -52,6 +52,8 @@ const SeverityAnnotationLevelMap = new Map([
             core.debug('Files is undefined');
         }
 
+        core.debug(JSON.stringify(tslint.Configuration.readConfigurationFile(tslintConfigFile), null, 2));
+
         core.debug('FILES FOUND : ' + files.length);
 
         for (const file of files) {
@@ -66,7 +68,7 @@ const SeverityAnnotationLevelMap = new Map([
         return linter.getResult();
     })();
 
-    core.debug(result);
+    core.debug(result.errorCount);
 
     const annotations = result.failures.map(failure => {
         core.debug('Failure');
