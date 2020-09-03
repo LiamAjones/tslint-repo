@@ -44,7 +44,8 @@ const SeverityAnnotationLevelMap = new Map([
     const result = (() => {
 
         const linter = new tslint.Linter({
-            fix: false
+            fix: false,
+            formatter: "json"
         });
         const files = glob.sync(pattern);
 
@@ -85,7 +86,7 @@ const SeverityAnnotationLevelMap = new Map([
 
     core.debug(conclusion);
 
-    await octokit.checks.update({
+    const ocktoData = {
         owner: ctx.repo.owner,
         repo: ctx.repo.repo,
         check_run_id: check.data.id,
@@ -103,7 +104,13 @@ const SeverityAnnotationLevelMap = new Map([
                 </details>`,
             annotations,
         }
-    });
+    };
+
+    core.debug(ocktoData)
+
+    await octokit.checks.update(ocktoData);
+
+
 })().catch((e) => {
     core.setFailed(e.message);
 });
