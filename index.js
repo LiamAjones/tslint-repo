@@ -66,15 +66,23 @@ const SeverityAnnotationLevelMap = new Map([
         return linter.getResult();
     })();
 
-    const annotations = result.failures.map(failure => ({
-        path: failure.getFileName(),
-        start_line: failure.getStartPosition().getLineAndCharacter().line,
-        end_line: failure.getEndPosition().getLineAndCharacter().line,
-        annotation_level: SeverityAnnotationLevelMap.get(failure.getRuleSeverity()) || "notice",
-        message: `[${failure.getRuleName()}] ${failure.getFailure()}`,
-    }));
+    core.debug(result);
+
+    const annotations = result.failures.map(failure => {
+        core.debug('Failure');
+        core.debug(failure);
+        return ({
+            path: failure.getFileName(),
+            start_line: failure.getStartPosition().getLineAndCharacter().line,
+            end_line: failure.getEndPosition().getLineAndCharacter().line,
+            annotation_level: SeverityAnnotationLevelMap.get(failure.getRuleSeverity()) || "notice",
+            message: `[${failure.getRuleName()}] ${failure.getFailure()}`,
+        })
+    });
 
     const conclusion = result.errorCount > 0 ? "failure" : "success";
+
+    core.debug(conclusion);
 
     await octokit.checks.update({
         owner: ctx.repo.owner,
