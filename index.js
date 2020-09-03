@@ -110,6 +110,7 @@ const SeverityAnnotationLevelMap = new Map([
 
     const wait = await octokit.checks.update(ocktoData);
 
+    core.debug(wait);
 
 })().catch((e) => {
     core.setFailed(e.message);
