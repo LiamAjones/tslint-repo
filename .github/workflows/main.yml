@@ -15,5 +15,5 @@ jobs:
         uses: LiamAjones/tslint-repo@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          pattern: '*/demo/**/*.ts'
+          pattern: '**/*.ts'
           tslintConfigFile: 'demo/tslint.json'
