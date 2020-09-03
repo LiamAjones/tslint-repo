@@ -1,0 +1,4 @@
+node_modules/**
+dist/rules/**
+dist/formatters/**
+dist/typescript/**
