@@ -2,6 +2,6 @@ const istesting: boolean = true;
 
 const value: any;
 
-if (istesting == true) {
+if (istesting == false) {
     console.log('demo');
 }
