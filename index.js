@@ -28,6 +28,9 @@ const SeverityAnnotationLevelMap = new Map([
         return;
     }
 
+    console.log('ts config file' + tslintConfigFile);
+    console.log('pattern' + pattern);
+
     const octokit = new github.getOctokit(github_token);
 
     const check = await octokit.checks.create({

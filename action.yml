@@ -2,7 +2,7 @@ name: "TSLint Action"
 description: "Runs TSLint"
 inputs:
   tslintConfigFile:
-    description: "File path to ts config file (client/tsconfig.json)"
+    description: "File path to ts config file (client/tslint.json)"
     required: true
   pattern:
     description: "Glob pattern to match files (client/**/*.ts)"
