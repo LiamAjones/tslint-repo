@@ -1,5 +1,9 @@
 name: "TSLint Action"
-description: "Runs TSLint"
+author: "Liam Jones"
+description: "GitHub action for linting typescript files using TSLint"
+branding:
+  icon: 'align-center'
+  color: 'blue'
 inputs:
   tslintConfigFile:
     description: "File path to ts config file (client/tslint.json)"
