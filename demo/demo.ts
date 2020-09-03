@@ -4,4 +4,5 @@ const value: any;
 
 if (istesting == false) {
     console.log('demo');
+    console.debug('demo');
 }
