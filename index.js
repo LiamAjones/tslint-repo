@@ -46,8 +46,18 @@ const SeverityAnnotationLevelMap = new Map([
         const linter = new tslint.Linter({
             fix: false
         });
+        const files = glob.sync(pattern);
 
-        for (const file of glob.sync(pattern)) {
+        if (!files) {
+            core.debug('Files is undefined');
+        }
+
+        core.debug('FILES FOUND : ' + files.length);
+
+        for (const file of files) {
+
+            core.debug(file);
+
             const fileContents = fs.readFileSync(file, { encoding: "utf8" });
             const configuration = tslint.Configuration.findConfiguration(tslintConfigFile, file).results;
             linter.lint(file, fileContents, configuration);
