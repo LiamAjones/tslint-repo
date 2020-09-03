@@ -72,7 +72,6 @@ const SeverityAnnotationLevelMap = new Map([
 
     const annotations = result.failures.map(failure => {
         core.debug('Failure');
-        core.debug(failure);
         return ({
             path: failure.getFileName(),
             start_line: failure.getStartPosition().getLineAndCharacter().line,
