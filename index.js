@@ -102,7 +102,7 @@ const SeverityAnnotationLevelMap = new Map([
                 \`\`\`
                 </details>`,
             annotations,
-        },
+        }
     });
 })().catch((e) => {
     core.setFailed(e.message);
