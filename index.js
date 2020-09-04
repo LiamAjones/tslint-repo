@@ -113,14 +113,8 @@ const SeverityAnnotationLevelMap = new Map([
     if (annotations.length <= 50) {
         await sendData(annotations);
     } else {
-
-        const itterations = Math.ceil(annotations.length / MAX_ANNOTATIONS);
-
-        for (var i = 0; i < itterations; i++) {
-
-            var splitAnnotations = annotations.slice(i * MAX_ANNOTATIONS, MAX_ANNOTATIONS);
-
-            await sendData(splitAnnotations);
+        while (annotations.length !== 0) {
+            await sendData(annotations.splice(0, MAX_ANNOTATIONS));
         }
     }
 
