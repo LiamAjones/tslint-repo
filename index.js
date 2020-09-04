@@ -7,6 +7,8 @@ const common_tags_1 = require("common-tags");
 const fs = require("fs");
 const glob = require("glob");
 const tslint = require("tslint");
+const { error } = require("console");
+const MAX_ANNOTATIONS = 50;
 
 const SeverityAnnotationLevelMap = new Map([
     ["warning", "warning"],
@@ -86,25 +88,41 @@ const SeverityAnnotationLevelMap = new Map([
 
     core.debug(conclusion);
 
-    const ocktoData = {
-        owner: ctx.repo.owner,
-        repo: ctx.repo.repo,
-        check_run_id: check.data.id,
-        name: "TSLint Action",
-        status: "completed",
-        conclusion: conclusion,
-        output: {
-            title: "TSLint Action",
-            summary: `${result.errorCount} error(s), ${result.warningCount} warning(s) found`,
-            annotations,
+    const sendData = (async (annotations) => {
+        const ocktoData = {
+            owner: ctx.repo.owner,
+            repo: ctx.repo.repo,
+            check_run_id: check.data.id,
+            name: "TSLint Action",
+            status: "completed",
+            conclusion: conclusion,
+            output: {
+                title: "TSLint Action",
+                summary: `${result.errorCount} error(s), ${result.warningCount} warning(s) found`,
+                annotations,
+            }
+        };
+
+        core.debug(ocktoData)
+
+        const wait = await octokit.checks.update(ocktoData);
+
+        core.debug(wait);
+    });
+
+    if (annotations.length <= 50) {
+        await sendData(annotations);
+    } else {
+
+        const itterations = Math.ceil(annotations.length / MAX_ANNOTATIONS);
+
+        for (var i = 0; i < itterations; i++) {
+
+            var splitAnnotations = annotations.slice(i * MAX_ANNOTATIONS, MAX_ANNOTATIONS);
+
+            await sendData(splitAnnotations);
         }
-    };
-
-    core.debug(ocktoData)
-
-    const wait = await octokit.checks.update(ocktoData);
-
-    core.debug(wait);
+    }
 
 })().catch((e) => {
     core.setFailed(e.message);
