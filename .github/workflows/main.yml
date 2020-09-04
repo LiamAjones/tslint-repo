@@ -12,7 +12,7 @@ jobs:
       - name: Prepare
         run: npm ci
       - name: Lint
-        uses: LiamAjones/tslint-repo@master
+        uses: LiamAjones/actions-tslint@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           pattern: '**/demo/*.ts'
